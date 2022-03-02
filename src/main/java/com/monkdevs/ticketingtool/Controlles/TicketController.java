@@ -34,6 +34,11 @@ public class TicketController {
         }
     }
 
+    @GetMapping("/{id}")
+    public Ticket getTicketById(@PathVariable Long id){
+        return ticketServices.findTicketById(id);
+    }
+
     @PostMapping("/create")
     public Ticket postTicket(@RequestBody Ticket ticket){
         return ticketServices.createTicket(ticket);
@@ -53,8 +58,8 @@ public class TicketController {
     public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket, @PathVariable Long id){
         Ticket currentTicket = ticketServices.findTicketById(id);
             if(currentTicket != null){
-                ticketServices.updateTicket(currentTicket, id);
-                return new ResponseEntity<Ticket>(currentTicket, HttpStatus.OK);
+                ticketServices.updateTicket(ticket, id);
+                return new ResponseEntity<Ticket>(ticket, HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
