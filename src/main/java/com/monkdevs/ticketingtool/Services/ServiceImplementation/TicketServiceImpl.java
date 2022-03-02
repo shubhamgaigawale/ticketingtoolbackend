@@ -1,9 +1,11 @@
 package com.monkdevs.ticketingtool.Services.ServiceImplementation;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import com.monkdevs.ticketingtool.Models.Ticket;
+import com.monkdevs.ticketingtool.Models.User;
 import com.monkdevs.ticketingtool.Repositories.TicketRepository;
 import com.monkdevs.ticketingtool.Services.TicketServices;
 
@@ -68,6 +70,18 @@ public class TicketServiceImpl implements TicketServices{
     @Override
     public void deleteTicketById(Long id) {
         ticketRepository.deleteById(id);        
+    }
+
+    @Override
+    public void assignTicketToUser(Ticket ticket, User user) {
+        ticket.setAssignedTo(user);
+        ticketRepository.save(ticket);        
+    }
+
+    @Override
+    public void unassignTicket(Ticket ticket) {
+        ticket.setAssignedTo(null);
+        ticketRepository.save(ticket);
     }
     
 }

@@ -3,6 +3,7 @@ package com.monkdevs.ticketingtool.Services;
 import java.util.List;
 
 import com.monkdevs.ticketingtool.Models.Ticket;
+import com.monkdevs.ticketingtool.Models.User;
 
 public interface TicketServices {
 
@@ -19,4 +20,8 @@ public interface TicketServices {
     public Ticket updateTicket(Ticket ticket, Long id);
 
     public void deleteTicketById(Long id);
+
+    public void assignTicketToUser(Ticket ticket, User selectedUser);
+
+    public void unassignTicket(Ticket ticket);
 }

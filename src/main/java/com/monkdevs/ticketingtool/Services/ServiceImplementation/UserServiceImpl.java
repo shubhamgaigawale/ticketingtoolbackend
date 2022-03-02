@@ -22,13 +22,13 @@ public class UserServiceImpl implements UserServices{
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public User findUserById(Long id) {
+        return null;
     }
     
 }

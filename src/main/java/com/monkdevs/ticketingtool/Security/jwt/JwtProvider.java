@@ -26,7 +26,7 @@ public class JwtProvider {
     @Value("abcdefghijklmnopqrstuvw")
     private String jwtSecret;
 
-    @Value("100")
+    @Value("100000")
     private int jwtExpiration;
 
     public String generateJwtToken(Authentication authentication) {

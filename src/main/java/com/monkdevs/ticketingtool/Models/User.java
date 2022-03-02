@@ -30,6 +30,12 @@ public class User {
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_tickets", 
+    joinColumns = @JoinColumn(name = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "ticket_id"))
+    private Set<Ticket> assignedTickets = new HashSet<>();
+
     public User() {
     }
 
@@ -97,9 +103,11 @@ public class User {
         this.roles = roles;
     }
 
-    
+    public Set<Ticket> getAssignedTickets() {
+        return assignedTickets;
+    }
 
-
-
-    
+    public void setAssignedTickets(Set<Ticket> assignedTickets) {
+        this.assignedTickets = assignedTickets;
+    }    
 }
