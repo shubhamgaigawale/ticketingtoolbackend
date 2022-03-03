@@ -24,4 +24,6 @@ public interface TicketServices {
     public void assignTicketToUser(Ticket ticket, User selectedUser);
 
     public void unassignTicket(Ticket ticket);
+
+    public List<Ticket> getListOfTicketByUser(Long userId);
 }

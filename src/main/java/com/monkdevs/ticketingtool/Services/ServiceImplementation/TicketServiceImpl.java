@@ -1,14 +1,12 @@
 package com.monkdevs.ticketingtool.Services.ServiceImplementation;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 import com.monkdevs.ticketingtool.Models.Ticket;
 import com.monkdevs.ticketingtool.Models.User;
 import com.monkdevs.ticketingtool.Repositories.TicketRepository;
 import com.monkdevs.ticketingtool.Services.TicketServices;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +15,7 @@ public class TicketServiceImpl implements TicketServices{
 
     @Autowired
     private TicketRepository ticketRepository;
+
 
     public String getRandomNumberString(){
         Random random = new Random();
@@ -82,6 +81,11 @@ public class TicketServiceImpl implements TicketServices{
     public void unassignTicket(Ticket ticket) {
         ticket.setAssignedTo(null);
         ticketRepository.save(ticket);
+    }
+
+    @Override
+    public List<Ticket> getListOfTicketByUser(Long userId) {
+        return ticketRepository.findTicketByUser(userId);
     }
     
 }

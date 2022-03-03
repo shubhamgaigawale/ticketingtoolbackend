@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -26,9 +25,6 @@ public class Ticket {
     private String applicationName;
 
     @ManyToOne
-    @JoinTable(name = "user_tickets", 
-    joinColumns = @JoinColumn(name = "ticket_id"), 
-    inverseJoinColumns = @JoinColumn(name = "user_id"))
     private User assignedTo;
     
     public Ticket() {

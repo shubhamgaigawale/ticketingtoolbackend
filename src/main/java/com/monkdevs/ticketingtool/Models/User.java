@@ -1,6 +1,7 @@
 package com.monkdevs.ticketingtool.Models;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -30,11 +32,8 @@ public class User {
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_tickets", 
-    joinColumns = @JoinColumn(name = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "ticket_id"))
-    private Set<Ticket> assignedTickets = new HashSet<>();
+    @OneToMany(mappedBy = "assignedTo" )
+    private List<Ticket> assignedTickets;
 
     public User() {
     }
@@ -102,12 +101,4 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-    public Set<Ticket> getAssignedTickets() {
-        return assignedTickets;
-    }
-
-    public void setAssignedTickets(Set<Ticket> assignedTickets) {
-        this.assignedTickets = assignedTickets;
-    }    
 }

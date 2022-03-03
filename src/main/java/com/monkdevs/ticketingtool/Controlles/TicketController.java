@@ -1,7 +1,6 @@
 package com.monkdevs.ticketingtool.Controlles;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.monkdevs.ticketingtool.Models.Ticket;
 import com.monkdevs.ticketingtool.Models.User;
@@ -84,5 +83,11 @@ public class TicketController {
         User selectedUser = userServices.findUserById(userId);
         ticketServices.assignTicketToUser(selectedTicket, selectedUser);
         return "Ticket has been assigned";
+    }
+
+    @GetMapping("/allticketsbyuser/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    public List<Ticket> getTicketByUserId(@PathVariable Long id){
+        return ticketServices.getListOfTicketByUser(id);
     }
 }
