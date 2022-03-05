@@ -28,9 +28,10 @@ public class TicketServiceImpl implements TicketServices{
         return ticketRepository.findTicketById(id);
     }
 
+
     @Override
-    public Ticket findByTicketId(String ticketId) {
-        return ticketRepository.findByTicketId(ticketId);
+    public Ticket findByDeveloperTicket(String developerTicket) {
+        return ticketRepository.getByDeveloperTicket(developerTicket);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class TicketServiceImpl implements TicketServices{
 
     @Override
     public Ticket createTicket(Ticket ticket) {
-        ticket.setTicketId("DT-" + getRandomNumberString());
+        ticket.setDeveloperTicket("DT-" + getRandomNumberString());
         return ticketRepository.save(ticket);
     }
 
@@ -87,5 +88,4 @@ public class TicketServiceImpl implements TicketServices{
     public List<Ticket> getListOfTicketByUser(Long userId) {
         return ticketRepository.findTicketByUser(userId);
     }
-    
 }

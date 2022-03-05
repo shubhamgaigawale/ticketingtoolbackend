@@ -9,7 +9,7 @@ public interface TicketServices {
 
     public Ticket findTicketById(Long id);
 
-    public Ticket findByTicketId(String ticketId);
+    public Ticket findByDeveloperTicket(String developerTicket);
 
     public Ticket findByTicketName(String ticketName);
 

@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -13,7 +12,7 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String ticketId;
+    private String developerTicket;
     private String ticketName;
     private String ticketDescription;
     private String ticketType;
@@ -30,11 +29,11 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(Long id, String ticketId, String ticketName, String ticketDescription, String ticketType,
+    public Ticket(Long id, String developerTicket, String ticketName, String ticketDescription, String ticketType,
             String priority, String stepsToReproduce, boolean isActive, String status, boolean isRegressions,
             String applicationName, User assignedTo) {
         this.id = id;
-        this.ticketId = ticketId;
+        this.developerTicket = developerTicket;
         this.ticketName = ticketName;
         this.ticketDescription = ticketDescription;
         this.ticketType = ticketType;
@@ -55,12 +54,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public String getTicketId() {
-        return ticketId;
+    public String getDeveloperTicket() {
+        return developerTicket;
     }
 
-    public void setTicketId(String ticketId) {
-        this.ticketId = ticketId;
+    public void setDeveloperTicket(String developerTicket) {
+        this.developerTicket = developerTicket;
     }
 
     public String getTicketName() {

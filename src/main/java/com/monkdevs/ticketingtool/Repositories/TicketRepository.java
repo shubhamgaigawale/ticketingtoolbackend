@@ -13,7 +13,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>{
     
     Ticket findTicketById(Long id);
 
-    Ticket findByTicketId(String ticketId);
+    @Query(value = "SELECT * FROM TICKET t WHERE t.developer_ticket = :developerTicket", nativeQuery = true)
+    Ticket getByDeveloperTicket(String developerTicket);
 
     Ticket findByTicketName(String ticketName);
 
