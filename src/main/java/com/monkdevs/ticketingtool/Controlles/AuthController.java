@@ -1,5 +1,6 @@
 package com.monkdevs.ticketingtool.Controlles;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -72,6 +73,11 @@ public class AuthController {
         signupRequest.getUsername(), 
         signupRequest.getEmail(), 
         passwordEncoder.encode(signupRequest.getPassword()));
+
+        LocalDateTime createdDate = LocalDateTime.now();
+
+        user.setCreatedDate(createdDate);
+        user.setIsActive(true);
 
         Set<Role> roles = new HashSet<>();
         if(signupRequest.getRole() != null){

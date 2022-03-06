@@ -1,5 +1,6 @@
 package com.monkdevs.ticketingtool.Models;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,14 +26,14 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private Boolean isActive;
+    private LocalDateTime createdDate;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles", 
-    joinColumns = @JoinColumn(name = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "assignedTo" )
+    @OneToMany(mappedBy = "assignedTo")
     private List<Ticket> assignedTickets;
 
     public User() {
@@ -101,4 +102,21 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+    
 }
