@@ -1,6 +1,7 @@
 package com.monkdevs.ticketingtool.Repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.monkdevs.ticketingtool.Models.Ticket;
 
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Repository;
 public interface TicketRepository extends JpaRepository<Ticket, Long>{
     
     Ticket findTicketById(Long id);
+
+    Optional<Ticket> findById(Long id);
 
     @Query(value = "SELECT * FROM TICKET t WHERE t.developer_ticket = :developerTicket", nativeQuery = true)
     Ticket getByDeveloperTicket(String developerTicket);

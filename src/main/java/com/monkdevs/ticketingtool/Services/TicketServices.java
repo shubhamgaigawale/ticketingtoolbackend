@@ -1,6 +1,7 @@
 package com.monkdevs.ticketingtool.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.monkdevs.ticketingtool.Models.Ticket;
 import com.monkdevs.ticketingtool.Models.User;
@@ -26,4 +27,6 @@ public interface TicketServices {
     public void unassignTicket(Ticket ticket);
 
     public List<Ticket> getListOfTicketByUser(Long userId);
+
+    public Optional<Ticket> findById(Long id);
 }

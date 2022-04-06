@@ -1,6 +1,7 @@
 package com.monkdevs.ticketingtool.Controlles;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.monkdevs.ticketingtool.Message.Request.AssignTicketRequest;
 import com.monkdevs.ticketingtool.Message.Response.ResponseMessage;
@@ -33,7 +34,7 @@ public class TicketController {
     private UserServices userServices;
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
     public ResponseEntity<List<Ticket>> getAllTickets() {
         try {
             List<Ticket> tickets = ticketServices.getAlTickets();
@@ -44,25 +45,31 @@ public class TicketController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
-    public Ticket getTicketById(@PathVariable Long id) {
-        return ticketServices.findTicketById(id);
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    public ResponseEntity<Optional<Ticket>> getTicketById(@PathVariable Long id) {
+        Optional<Ticket> ticket =  ticketServices.findById(id);
+        if(ticket != null){
+            System.out.println(ticket);
+            return new ResponseEntity<Optional<Ticket>>(ticket, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{developerTicket}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
     public Ticket getTicketByDeveloperTicket(@PathVariable String developerTicket) {
         return ticketServices.findByDeveloperTicket(developerTicket);
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
     public Ticket postTicket(@RequestBody Ticket ticket) {
         return ticketServices.createTicket(ticket);
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
     public ResponseEntity<HttpStatus> deleteTicket(@PathVariable Long id) {
         try {
             ticketServices.deleteTicketById(id);
@@ -73,7 +80,7 @@ public class TicketController {
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
     public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket, @PathVariable Long id) {
         Ticket currentTicket = ticketServices.findTicketById(id);
         if (currentTicket != null) {
@@ -85,7 +92,7 @@ public class TicketController {
     }
 
     @PostMapping("/assignTicket/{ticketId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
     public ResponseEntity<?> assignTicketToUser(@RequestBody AssignTicketRequest assignTicketRequest,
             @PathVariable Long ticketId) {
 
@@ -118,7 +125,7 @@ public class TicketController {
     }
 
     @GetMapping("/unassignTicket/{ticketId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
     public ResponseEntity<?> unassignTicket(@PathVariable Long ticketId){
         Ticket selectedTicket = ticketServices.findTicketById(ticketId);
 
@@ -131,7 +138,7 @@ public class TicketController {
     }
 
     @GetMapping("/allticketsbyuser/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEVELOPER') or hasRole('ROLE_TESTER')")
     public ResponseEntity<?> getTicketByUserId(@PathVariable Long id) {
         if(userServices.findUserById(id) != null){
             List<Ticket> ticketsAssignToUser =  ticketServices.getListOfTicketByUser(id);

@@ -24,7 +24,7 @@ public class UserControllers {
     private UserServices userServices;
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> findAllUsers(){
         List<User> users= userServices.getAllUsers();
 
@@ -36,7 +36,7 @@ public class UserControllers {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> findUserById(@PathVariable Long id){
         User user = userServices.findUserById(id);
 
@@ -48,7 +48,7 @@ public class UserControllers {
     }
 
     @GetMapping("/{username}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> findUserByUsername(@PathVariable String username){
         Optional<User> user = userServices.findByUsername(username);
 
@@ -60,7 +60,7 @@ public class UserControllers {
     }
 
     @GetMapping("/{email}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> findUserByEmail(@PathVariable String email){
         User user = userServices.getUserByEmail(email);
 

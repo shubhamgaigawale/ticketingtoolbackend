@@ -1,6 +1,7 @@
 package com.monkdevs.ticketingtool.Services.ServiceImplementation;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import com.monkdevs.ticketingtool.Models.Ticket;
@@ -46,7 +47,12 @@ public class TicketServiceImpl implements TicketServices{
 
     @Override
     public Ticket createTicket(Ticket ticket) {
-        ticket.setDeveloperTicket("DT-" + getRandomNumberString());
+        if(ticket.getTicketType().equals("supportTicket")){
+            ticket.setDeveloperTicket("T-" + getRandomNumberString());
+        }else{
+            ticket.setDeveloperTicket("DT-" + getRandomNumberString());
+        }
+        ticket.setStatus("pending");
         return ticketRepository.save(ticket);
     }
 
@@ -87,5 +93,10 @@ public class TicketServiceImpl implements TicketServices{
     @Override
     public List<Ticket> getListOfTicketByUser(Long userId) {
         return ticketRepository.findTicketByUser(userId);
+    }
+
+    @Override
+    public Optional<Ticket> findById(Long id) {
+        return ticketRepository.findById(id);
     }
 }

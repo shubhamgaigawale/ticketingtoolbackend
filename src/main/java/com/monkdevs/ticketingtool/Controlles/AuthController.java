@@ -14,6 +14,7 @@ import com.monkdevs.ticketingtool.Models.User;
 import com.monkdevs.ticketingtool.Repositories.RoleRepository;
 import com.monkdevs.ticketingtool.Repositories.UserRepository;
 import com.monkdevs.ticketingtool.Security.jwt.JwtProvider;
+import com.monkdevs.ticketingtool.Services.EmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,9 @@ public class AuthController {
 
     @Autowired
     JwtProvider jwtProvider;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
@@ -114,6 +118,8 @@ public class AuthController {
 
             user.setRoles(roles);
             userRepository.save(user);
+
+            emailService.sendRegistrationEmail(user, signupRequest.getPassword());
 
             return new ResponseEntity<>(new ResponseMessage("User "+ signupRequest.getFirstName() + " is registered successfully"), HttpStatus.OK);
         }
